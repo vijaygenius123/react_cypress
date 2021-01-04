@@ -6,7 +6,9 @@ describe("Basic Tests", () => {
     it("opens the app", () => {
 
         cy.visit("http://localhost:3000")
-        cy.get('.App-link').contains("Learn React")
+        cy.get("[data-test-id='todo-list'")
 
+        cy.get("[data-test-id='todo-heading'")
+            .contains("Todo List")
     })
 })

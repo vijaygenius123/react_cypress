@@ -7,14 +7,31 @@ class TodoList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            todos: []
+            todos: [],
+            todo: ''
+        }
+    }
+
+    handleInputChange = (e) => {
+        this.setState({todo: e.target.value})
+    }
+
+    handleAddTodo = () => {
+        const {todo, todos} = this.state;
+        if(todo) {
+            this.setState({
+                todo: '',
+                todos: [...todos, {title: todo, id: todos.length + 1}]
+            })
         }
     }
     render() {
-        const {todos} = this.state;
+        const {todos, todo} = this.state;
         return (
             <div data-test-id="todo-list">
                 <h1 data-test-id="todo-heading">Todo List</h1>
+                <input type="text" value={todo} onChange={this.handleInputChange} data-test-id="todo-input"/>
+                <button data-test-id="todo-add" onClick={this.handleAddTodo}>Add</button>
                 {todos.map(todo => (
                     <TodoItem todo={todo} />
                 ))}

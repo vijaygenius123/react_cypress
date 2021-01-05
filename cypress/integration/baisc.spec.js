@@ -59,6 +59,6 @@ describe("Add Two Todo with content", () => {
             .click()
 
         cy.get("[data-test-class='todo-item'")
-            .should('have.length',1)
+            .should('have.length',2)
     })
 })

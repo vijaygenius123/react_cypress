@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import TodoItem from "./TodoItem";
 
 class TodoList extends Component {
@@ -18,13 +17,22 @@ class TodoList extends Component {
 
     handleAddTodo = () => {
         const {todo, todos} = this.state;
-        if(todo) {
+        if (todo) {
             this.setState({
                 todo: '',
                 todos: [...todos, {title: todo, id: todos.length + 1}]
             })
         }
     }
+
+    handleDelete = (id) => {
+        const {todos} = this.state;
+        this.setState({
+            todos: todos.filter(todo => todo.id !== id)
+        })
+
+    }
+
     render() {
         const {todos, todo} = this.state;
         return (
@@ -33,7 +41,7 @@ class TodoList extends Component {
                 <input type="text" value={todo} onChange={this.handleInputChange} data-test-id="todo-input"/>
                 <button data-test-id="todo-add" onClick={this.handleAddTodo}>Add</button>
                 {todos.map(todo => (
-                    <TodoItem todo={todo} />
+                    <TodoItem key={todo.id} todo={todo} handleDelete={this.handleDelete}/>
                 ))}
             </div>
         );
@@ -41,7 +49,7 @@ class TodoList extends Component {
 }
 
 TodoList.propTypes = {
-    todos: Array,
+    todos: Object,
 };
 
 export default TodoList;
